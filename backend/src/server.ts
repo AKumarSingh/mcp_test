@@ -95,9 +95,9 @@ app.get("/", (req, res) => {
 let transport: SSEServerTransport;
 
 app.get("/sse", async (req, res) => {
-  req.setTimeout(process.env.MCP_TIMEOUT ? parseInt(process.env.MCP_TIMEOUT) : 300000);
-  res.setTimeout(process.env.MCP_TIMEOUT ? parseInt(process.env.MCP_TIMEOUT) : 300000);
-  
+  req.setTimeout(300000);
+  res.setTimeout(300000);
+
   transport = new SSEServerTransport("/messages", res);
   await server.connect(transport);
 });
@@ -108,6 +108,8 @@ app.post("/messages", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
+console.log(`MCP SSE Server 3001`);
 app.listen(PORT, () => {
+  console.log(`MCP SSE Server ok`);
   console.log(`MCP SSE Server running on port ${PORT}`);
 });
